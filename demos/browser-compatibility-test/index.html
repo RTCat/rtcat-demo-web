@@ -12,30 +12,30 @@
 <div id="devices"></div>
 
 <script>
-        var output = 'Detecting browsers by RTCDetect:<hr>';
-        output += 'Browser: ' + RTCDetect.browser.name + '<br>';
-        output += 'Version: ' + RTCDetect.browser.version + '<br>';
-        output += 'Full Version: ' + RTCDetect.browser.fullVersion + '<br>';
-        output += 'OS Name: ' + RTCDetect.osName + '<br>';
-        output += 'Is GetUserMedia Supported: ' + RTCDetect.getUserMediaSupport + '<br>';
-        output += 'Is RTCPeerConnection Supported: ' + RTCDetect.RTCPeerConnectionSupport + '<br>';
-        output += 'Is DataChannel Supported: ' + RTCDetect.dataChannelSupport + '<br>';
-        output += 'Is WebSocket Supported: ' + RTCDetect.WebSocketSupport + '<br>';
-        output += 'Is Screen Capturing Supported: ' + RTCDetect.screenCaputringSupport + '<br>';
-        output += 'Is ORTC Supported: ' + RTCDetect.ORTCSupport + '<br>';
-        output += 'Is RTCat Supported: ' + RTCDetect.RTCatSupport + '<br>';
+        var output = 'Detecting browser info by RTCDetect 使用实时猫浏览器检测组件检测浏览器情况<hr>';
+        output += 'Browser name 浏览器名称 ' + RTCDetect.browser.name + '<br>';
+        output += 'Browser version 浏览器版本 ' + RTCDetect.browser.version + '<br>';
+        output += 'Full Version 浏览器完整版本号 ' + RTCDetect.browser.fullVersion + '<br>';
+        output += 'OS Name 操作系统名称 ' + RTCDetect.osName + '<br>';
+        output += 'Uploading my video/audio (getUserMedia) 是否支持音视频上传 ' + RTCDetect.getUserMediaSupport + '<br>';
+        output += 'Viewing video/audio of others (peerConnection) 是否支持查看他人音视频 ' + RTCDetect.RTCPeerConnectionSupport + '<br>';
+        output += 'Transporting files and data(dataChannel) 是否支持传送文件和数据 ' + RTCDetect.dataChannelSupport + '<br>';
+        output += 'Sending text messages(WebSocket) 是否支持发送文字信息 ' + RTCDetect.WebSocketSupport + '<br>';
+        output += 'Screen sharing 是否支持屏幕分享 ' + RTCDetect.screenCaputringSupport + '<br>';
+        output += 'Is ORTC Supported 是否支持ORTC ' + RTCDetect.ORTCSupport + '<br>';
+        output += 'Officially supported by RealTimeCat 已被实时猫官方支持 ' + RTCDetect.RTCatSupport + '<br>';
         document.getElementById('general').innerHTML = output;
         RTCDetect.checkDeviceSupport(function (error, resp) {
-            var output = 'Detecting Media Devices by RTCDetect:' + '<br>';
+            var output = 'Detecting Media Devices by RTCDetect 使用实时猫浏览器检测组件检测媒体设备' + '<br>';
             if (error) {
-                output+='Error: ' + error;
+                output+='Error with Input Devices Test 输入设备测试出错 ' + error;
                 document.getElementById('devices').innerHTML = output;
                 return;
             }
-            output += 'Has Microphone:' + resp.hasMicrophone + "<br>";
-            output += 'Has Speakers:' + resp.hasSpeakers + "<br>";
-            output += 'Has Webcam:' + resp.hasWebcam + "<br>";
-            output += 'Media Devices:' + '<br>';
+            output += 'Microphone 麦克风' + resp.hasMicrophone + "<br>";
+            output += 'Speakers 音响' + resp.hasSpeakers + "<br>";
+            output += 'Webcam 摄像头' + resp.hasWebcam + "<br>";
+            output += 'Media Devices 媒体设备' + '<br>';
             output += '<pre>';
             resp.MediaDevices.forEach(function (item) {
                 for (var i in item) {
