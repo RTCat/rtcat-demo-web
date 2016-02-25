@@ -1,10 +1,54 @@
-(function ($) {
+(function (RTCat, $) {
 
     // 声明变量
     var session;
     var localStream;
-    var token = $('#token').val();
+    var sessionId;
+    var token;
     var mediaList = document.querySelector('#media-list');
+
+    $.ajax({
+        url: "http://localhost:8080/tokens",
+        method: 'GET',
+        success: function (resp) {
+            token = resp.uuid;
+            initSession(token);
+        }
+    });
+
+    function initSession(token) {
+        session = new RTCat.Session(token);
+
+        session.connect();
+
+        session.on('connected', function (users) {
+            console.log('Session connected');
+            initStream({video: true, audio: true, data: true, ratio: 1.33}, function (stream) {
+                displayStream('self', stream)
+            });
+        });
+
+        session.on('in', function (token) {
+            if (localStream) {
+                session.sendTo({to: token, stream: localStream, data: true});
+            }
+            console.log('someone in');
+        });
+
+        session.on('out', function (token) {
+            console.log('someone out');
+        });
+
+        session.on('remote', function (r_channel) {
+            var id = r_channel.getId();
+            r_channel.on('stream', function (stream) {
+                displayStream(id, stream);
+            });
+            r_channel.on('close', function () {
+                $('#peer-' + id).parent().remove();
+            });
+        });
+    }
 
     // 初始化流
     function initStream(options, callback) {
@@ -42,36 +86,4 @@
         stream.play("peer-" + id);
     }
 
-    session = new RTCat.Session(token);
-
-    session.connect();
-
-    session.on('connected', function (users) {
-        console.log('Session connected');
-        initStream({video: true, audio: true, data: true, ratio: 1.33}, function (stream) {
-            displayStream('self', stream)
-        });
-    });
-
-    session.on('in', function (token) {
-        if (localStream) {
-            session.sendTo({to: token, stream: localStream, data: true});
-        }
-        console.log('someone in');
-    });
-
-    session.on('out', function (token) {
-        console.log('someone out');
-    });
-
-    session.on('remote', function (r_channel) {
-        var id = r_channel.getId();
-        r_channel.on('stream', function (stream) {
-            displayStream(id, stream);
-        });
-        r_channel.on('close', function () {
-            $('#peer-' + id).parent().remove();
-        });
-    });
-
-}).apply(this, [jQuery]);
+}).apply(this, [window.RTCat, jQuery]);
