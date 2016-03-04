@@ -8,7 +8,7 @@
     var mediaList = document.querySelector('#media-list');
 
     $.ajax({
-        url: "http://localhost:8080/tokens",
+        url: "http://localhost:8080/tokens/demo",
         method: 'GET',
         success: function (resp) {
             token = resp.uuid;
