@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Screen Sharing</title>
+    <link rel="stylesheet" href="./lib/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container" role="main">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h3>分享屏幕示例</h3>
+
+            <p>
+                您可以作为屏幕分享方点击『分享屏幕』按钮，向对方分享您的屏幕。
+            </p>
+
+            <p>
+                作为屏幕分享方，您需要下载最新版本的实时猫Chrome屏幕分享插件，并在Chrome浏览器中访问<code>chrome://extensions/</code>打开扩展管理页面，拖动安装本扩展后方可分享屏幕。
+            </p>
+
+            <p>
+                您也可以等待对方分享屏幕，此时您不需要安装任何插件，也请不要点击分享屏幕按钮。
+            </p>
+
+            <a class="btn btn-primary" href="./lib/RealTimeCat-ScreenSharing-Extension_v0.2.2.crx" download>下载插件</a>
+
+            <button class="btn btn-default" id="share-screen">分享屏幕</button>
+        </div>
+
+        <div id="media-list"></div>
+
+    </div>
+</div>
+
+<script src="./lib/jquery.min.js"></script>
+<script src="./lib/bootstrap.min.js"></script>
+<script src="//dn-learning-tech.qbox.me/realtimecat/realtimecat-0.2.min.js"></script>
+<script src="./screen-sharing.js"></script>
+
+</body>
+</html>

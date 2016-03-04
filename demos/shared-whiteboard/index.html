@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shared Whiteboard</title>
+    <link rel="stylesheet" href="./lib/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <style>
+        /*** Whiteboard ***/
+        #whiteboard-container {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .whiteboard {
+            background-image: -webkit-repeating-radial-gradient(center center, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2) 1px, transparent 1px, transparent 100%);
+            background-image: -moz-repeating-radial-gradient(center center, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2) 1px, transparent 1px, transparent 100%);
+            background-image: -ms-repeating-radial-gradient(center center, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2) 1px, transparent 1px, transparent 100%);
+            background-image: repeating-radial-gradient(center center, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2) 1px, transparent 1px, transparent 100%);
+            -webkit-background-size: 10px 10px;
+            -moz-background-size: 10px 10px;
+            background-size: 10px 10px;
+            border: 2px solid #bbb;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            cursor: crosshair;
+        }
+
+        #whiteboard-container .btn-group-vertical {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #fff;
+            background-color: rgba(50, 50, 50, 0.3);
+            z-index: 20;
+        }
+
+        #whiteboard-container .dropdown-menu {
+            top: 0;
+            left: 100%;
+            min-width: 200px;
+            margin: 0;
+        }
+
+        #whiteboard-container ul li {
+            display: inline-block;
+            align-items: center;
+            margin: 0 3px;
+        }
+
+        #whiteboard-container ul li a {
+            min-height: 20px;
+        }
+
+        .whiteboard-textarea {
+            position: absolute;
+            background: 0 0;
+            cursor: move;
+            width: 648px;
+            height: 20.8px;
+            color: rgb(0, 0, 0);
+            font-size: 16px;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            font-family: 'Droid sans', sans-serif;
+            line-height: 1.3;
+            font-weight: normal;
+            font-style: normal;
+            resize: none;
+        }
+
+        .whiteboard-textarea:focus {
+            outline: none !important;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container" role="main">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>共享白板示例</h3>
+            <p>复制此页面网址邀请朋友一起体验分享白板功能</p>
+        </div>
+    </div>
+
+    <div id="whiteboard-container">
+        <div class="btn-group-vertical">
+            <div class="btn-group">
+                <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle"><i
+                        class="fa fa-circle"></i></button>
+                <ul class="dropdown-menu">
+                    <li><a id="pen-1x" href="#">1X</a></li>
+                    <li><a id="pen-2x" href="#">2X</a></li>
+                    <li><a id="pen-3x" href="#">3X</a></li>
+                    <li><a id="pen-4x" href="#">4X</a></li>
+                    <li><a id="pen-5x" href="#">5X</a></li>
+                    <li><a id="pen-6x" href="#">6X</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button data-toggle="dropdown" type="button" class="btn btn-default dropdown-toggle"><i
+                        class="fa fa-paint-brush"></i></button>
+                <ul class="dropdown-menu">
+                    <li><a id="color-black" href="#" style="background-color: black;"></a></li>
+                    <li><a id="color-red" href="#" style="background-color: red;"></a></li>
+                    <li><a id="color-yellow" href="#" style="background-color:yellow;"></a></li>
+                    <li><a id="color-blue" href="#" style="background-color:blue;"></a></li>
+                    <li><a id="color-brown" href="#" style="background-color:brown;"></a></li>
+                </ul>
+            </div>
+            <button id="add-text" type="button" class="btn btn-default"><i class="fa fa-font"></i></button>
+            <button id="eraser" type="button" class="btn btn-default"><i class="fa fa-eraser"></i></button>
+            <button id="clear" type="button" class="btn btn-default"><i class="fa fa-trash-o"></i></button>
+        </div>
+    </div>
+
+    <script src="./lib/jquery.min.js"></script>
+    <script src="./lib/bootstrap.min.js"></script>
+    <script src="//dn-learning-tech.qbox.me/realtimecat/realtimecat-0.2.min.js"></script>
+    <script src="./shared-whiteboard.js"></script>
+
+</body>
+</html>

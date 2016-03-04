@@ -3,15 +3,13 @@
     // 声明变量
     var session;
     var localStream;
-    var sessionId;
-    var token;
     var mediaList = document.querySelector('#media-list');
 
     $.ajax({
-        url: "http://localhost:8080/tokens/demo",
+        url: "http://localhost:8080/tokens/video-chat",
         method: 'GET',
         success: function (resp) {
-            token = resp.uuid;
+            var token = resp.uuid;
             initSession(token);
         }
     });
