@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Video Chat</title>
     <link rel="stylesheet" href="./lib/bootstrap.min.css">
+    <style>
+        textarea#console {
+            font-family: Consolas, 'Lucida Console', monospace;
+            background-color: #e3e3e3 !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -14,6 +20,7 @@
             <h3>多人视频示例</h3>
             <p>所有访问本页面的读者的视频都会在下面列出。</p>
         </div>
+        <textarea id="console" class="form-control" rows="3">-------------- screen console --------------</textarea>
         <div id="media-list"></div>
     </div>
 </div>

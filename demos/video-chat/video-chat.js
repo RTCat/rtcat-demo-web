@@ -5,6 +5,8 @@
     var localStream;
     var mediaList = document.querySelector('#media-list');
 
+    // 从服务器获取token
+    // url地址为rtcat-demo-backend服务器地址
     $.ajax({
         url: "http://localhost:8080/tokens/video-chat",
         method: 'GET',
@@ -44,6 +46,21 @@
 
             r_channel.on('stream', function (stream) {
                 displayStream(id, stream);
+            });
+
+            // 检测对方视频丢包数量, 此方法使用了chrome的内置接口, 在其他浏览器上无效, 因此不可过分依赖此结果
+            // 一般调试用, 本demo仅作展示,将丢包数量打印到页面上
+            // 更多关于detect_video的用法可参看 https://shishimao.com/docs/web/sdk-reference/#receiver
+            // 相关章节
+            r_channel.on('detect_video', function (video) {
+                screenConsoleLog('channel ' + id + '视频丢包数量:' + video.packetsLost)
+            });
+
+            // 检测对方音频丢包数量, 此方法使用了chrome的内置接口, 在其他浏览器上无效, 因此不可过分依赖此结果
+            // 一般调试用, 本demo仅作展示,将丢包数量打印到页面上
+            // 更多关于detect_audio的用法可参看 https://shishimao.com/docs/web/sdk-reference/#receiver
+            r_channel.on('detect_audio', function (video) {
+                screenConsoleLog('channel ' + id + '音频丢包数量:' + video.packetsLost)
             });
 
             //检测到remote channel close事件,
@@ -97,5 +114,13 @@
 
         stream.play("peer-" + id);
     }
+
+    //输出到screen console
+    function screenConsoleLog(log) {
+        var time = new Date();
+        var timeStamp = time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds() + ":" + time.getMilliseconds();
+        $('textarea#console').val(timeStamp + "\t" + log + '\n' + $('textarea#console').val());
+    }
+
 
 }).apply(this, [window.RTCat, jQuery]);
