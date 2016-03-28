@@ -61,15 +61,13 @@
 
         session.on('connected', function (users) {
             console.log('Session connected');
-            initStream({video: true, audio: false, data: true}, function (stream) {
-                console.log('Local stream initialized')
-            });
+            // 此处创建流时不必要求video和audio权限
+            initStream({video: false, audio: false, data: true});
         });
 
         session.on('in', function (token) {
-            if (localStream) {
-                session.sendTo({to: token, stream: localStream, data: true});
-            }
+            //发送时不必发送流
+            session.sendTo({to: token, data: true});
             console.log('someone in');
         });
 
@@ -114,10 +112,9 @@
     function initStream(options, callback) {
         localStream = new RTCat.Stream(options);
         localStream.on('access-accepted', function () {
-                session.send({stream: localStream, data: true});
-                callback(localStream);
-            }
-        );
+            //发送时不必发送流
+            session.send({data: true});
+        });
         localStream.on('access-failed', function (err) {
             console.log(err);
         });
