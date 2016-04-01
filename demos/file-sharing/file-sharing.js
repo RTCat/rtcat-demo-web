@@ -61,8 +61,7 @@
 
         session.on('connected', function (users) {
             console.log('Session connected');
-            // 此处创建流时不必要求video和audio权限
-            initStream({video: false, audio: false, data: true});
+            session.send({data: true});
         });
 
         session.on('in', function (token) {
@@ -106,23 +105,6 @@
             });
         });
 
-    }
-
-    // 初始化流
-    function initStream(options, callback) {
-        localStream = new RTCat.Stream(options);
-        localStream.on('access-accepted', function () {
-            //发送时不必发送流
-            session.send({data: true});
-        });
-        localStream.on('access-failed', function (err) {
-            console.log(err);
-        });
-
-        localStream.on('play-error', function (err) {
-            console.log(err);
-        });
-        localStream.init();
     }
 
     // 发送文件
