@@ -16,18 +16,15 @@
     });
 
     $("#share-screen").click(function () {
-        RTCat.extensionId = 'kopddpjmdlllnpkpcphndjiaohbakkjb';
-        initStream({screen: true, ratio: 1.33}, function (stream) {
-            displayStream('self', stream)
-        });
+        initStream();
     });
 
     // 初始化流
-    function initStream(options, callback) {
-        localStream = new RTCat.Stream(options);
+    function initStream() {
+        localStream = new RTCat.Stream({screen: 'kopddpjmdlllnpkpcphndjiaohbakkjb'});
         localStream.on('access-accepted', function () {
                 session.send({stream: localStream, data: true});
-                callback(localStream);
+                displayStream('self', localStream);
             }
         );
         localStream.on('access-failed', function (err) {

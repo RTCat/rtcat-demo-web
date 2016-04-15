@@ -40,14 +40,14 @@
      * 处理消息函数
      * @param pkg
      */
-    function handleMessages(id, pkg) {
-        var pkg = JSON.parse(pkg);
-        switch (pkg.type) {
+    function handleMessages(pkg) {
+        var _pkg = JSON.parse(pkg.message);
+        switch (_pkg.type) {
             case 'Whiteboard':
-                drawOnMessageReceived(pkg.message);
+                drawOnMessageReceived(_pkg.message);
                 break;
             case 'Whiteboard Text':
-                addTextOnMessageReceived(pkg.message);
+                addTextOnMessageReceived(_pkg.message);
                 break;
             case 'Clear Whiteboard':
                 clearBoard();

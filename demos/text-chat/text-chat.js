@@ -49,10 +49,10 @@
             console.log('Someone out ' + token);
         });
 
-        session.on('message', function (token, pkg) {
-            console.log('Message received from ' + token);
-            var pkg = JSON.parse(pkg);
-            displayMessage(pkg.sender, pkg.message)
+        session.on('message', function (pkg) {
+            console.log(pkg);
+            var _pkg = JSON.parse(pkg.message);
+            displayMessage(_pkg.sender, _pkg.message)
         });
 
     }
