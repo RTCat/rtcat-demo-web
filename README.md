@@ -4,12 +4,12 @@
 
 ## Demo目录
 
-1. 浏览器兼容性检测
-2. 简单视频聊天
-3. 简单文字聊天
-4. 文件传送
-5. 屏幕分享
-6. 共享白板
+1. [浏览器兼容性检测](demos/browser-compatibility-test)
+2. [简单视频聊天](demos/video-chat)
+3. [简单文字聊天](demos/text-chat)
+4. [文件传送](demos/file-sharing)
+5. [屏幕分享](demos/screen-sharing)
+6. [共享白板](demos/shared-whiteboard)
 
 ## 快速开始
 
