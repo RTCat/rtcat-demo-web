@@ -23,9 +23,7 @@
 
         session.on('connected', function (users) {
             console.log('Session connected');
-            initStream({video: true, audio: true, data: true, ratio: 1.33}, function (stream) {
-                displayStream('self', stream)
-            });
+            initStream({video: true, audio: true, data: true, ratio: 1.33});
         });
 
         session.on('in', function (token) {
@@ -79,12 +77,25 @@
         });
     }
 
-    // 初始化流
-    function initStream(options, callback) {
+    /**
+     * 初始化流
+     * options参数为new RTCat.Stream传入的参数
+     * 如需较高的视频质量, 可将fps参数调高, 并使用分辨率较高的摄像头
+     * @param options {object}
+     * @param options.video    {boolean}，可选，默认false，获得视频流
+     * @param options.audio    {boolean}，可选，默认false，获得音频流
+     * @param options.data    {boolean}，可选，默认false，是否通过流传输输入
+     * @param options.ratio    {float}，可选，默认为1，获得视频的宽长比，ratio=width/length
+     * @param options.fps    {float}，可选,默认为15，视频原始帧数
+     * @param options.size    {array}，可选,默认[60,40,180,120]，视频原始大小，分别为[minWidth, minHeight, maxWidth, maxHeight]
+     * @example
+     * initStream({video: true, audio: true, data: true, ratio: 1.33, fps: 15});
+     */
+    function initStream(options) {
         localStream = new RTCat.Stream(options);
         localStream.on('access-accepted', function () {
                 session.send({stream: localStream, data: true});
-                callback(localStream);
+                displayStream('self', localStream);
             }
         );
         localStream.on('access-failed', function (err) {
