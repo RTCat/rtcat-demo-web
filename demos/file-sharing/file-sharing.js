@@ -4,7 +4,7 @@
     var session;
     var localStream;
     var sChannels = {}; // Senders Collection
-    var files;
+    var fileToSent;
 
     // 获取token并初始化session
     $.ajax({
@@ -18,38 +18,16 @@
 
     // 触发发送文件
     $('#sendFile').click(function () {
-        for (var i = 0, f; f = files[i]; i++) {
-            sendFile(f);
+        if (fileToSent) {
+            sendFile(fileToSent);
         }
     });
 
-    // Setup the dnd listeners.
-    var dropZone = document.getElementById('drop_zone');
-    dropZone.addEventListener('dragover', handleDragOver, false);
-    dropZone.addEventListener('drop', handleFileSelect, false);
-
-    function handleFileSelect(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-
-        files = evt.dataTransfer.files; // FileList object.
-
-        // files is a FileList of File objects. List some properties.
-        var output = [];
-        for (var i = 0, f; f = files[i]; i++) {
-            output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                f.size, ' bytes, last modified: ',
-                f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                '</li>');
-        }
-        document.getElementById('file-list').innerHTML = '<ul>' + output.join('') + '</ul>';
-    }
-
-    function handleDragOver(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-    }
+    // Setup the file input listeners.
+    $('#file').change(function () {
+        fileToSent = $('#file')[0].files[0];
+        $('#file-list').html('<ul><li>' + fileToSent.name + '</li></ul>');
+    });
 
     // 初始化session
     function initSession(token) {
@@ -126,6 +104,7 @@
     function fileSent() {
         document.querySelector(".progress-bar").style.width = "100%";
         document.querySelector('#sendFile').disabled = false;
+        fileToSent = null;
     }
 
     // 处理接收的文件
