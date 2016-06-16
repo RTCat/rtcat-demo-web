@@ -21,10 +21,10 @@
 
     // 初始化流
     function initStream() {
-        localStream = new RTCat.Stream({screen: 'kopddpjmdlllnpkpcphndjiaohbakkjb'});
+        localStream = new RTCat.Stream({screen: 'kopddpjmdlllnpkpcphndjiaohbakkjb'}); //传入extension id
         localStream.on('access-accepted', function () {
                 session.send({stream: localStream, data: true});
-                displayStream('self', localStream);
+                displayStream('self', localStream); //显示自己的流
             }
         );
         localStream.on('access-failed', function (err) {
@@ -37,7 +37,11 @@
         localStream.init();
     }
 
-    // 显示流
+    /**
+     * 显示流
+     * @param id 播放器的id
+     * @param stream 要显示的流
+     */
     function displayStream(id, stream) {
 
         // Video container
@@ -81,7 +85,7 @@
             var token = r_channel.getSender(); //获取对方的token, 方便之后的断线重连
 
             r_channel.on('stream', function (stream) {
-                displayStream(id, stream);
+                displayStream(id, stream); //显示对方的流
             });
 
             //使用once方法,只触发一次,防止断线重连时的bug
