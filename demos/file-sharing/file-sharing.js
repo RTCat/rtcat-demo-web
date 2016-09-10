@@ -34,9 +34,6 @@
         // 使用传入的token新建房间
         session = new RTCat.Session(token);
 
-        // 连接房间
-        session.connect();
-
         session.on('connected', function (users) {
             console.log('Session connected');
             session.send({data: true});
@@ -83,6 +80,9 @@
             });
         });
 
+        // 连接房间
+        session.connect();
+
     }
 
     // 发送文件
@@ -102,7 +102,9 @@
 
     // 文件发送完毕
     function fileSent() {
+        $('#file-list').html('<ul><li>' + fileToSent.name + ' 发送成功</li></ul>');
         document.querySelector(".progress-bar").style.width = "100%";
+        document.querySelector(".progress").setAttribute("class", "progress hidden");
         document.querySelector('#sendFile').disabled = false;
         fileToSent = null;
     }

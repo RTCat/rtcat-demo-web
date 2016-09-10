@@ -35,8 +35,6 @@
 
         session = new RTCat.Session(token);
 
-        session.connect();
-
         session.on('connected', function (users) {
             console.log('Session connected');
         });
@@ -55,16 +53,15 @@
             displayMessage(_pkg.sender, _pkg.message)
         });
 
+        session.connect();
+
     }
 
     // 发送消息
     function sendMessage(pkg) {
         // display the sent message
         displayMessage("我", pkg.message);
-        users = session.getWits();
-        for (var user in users) {
-            session.sendMessage(user, JSON.stringify(pkg));
-        }
+        session.broadcastMessage(JSON.stringify(pkg));
         // reset message field content
         $("#message-field").val("");
     }

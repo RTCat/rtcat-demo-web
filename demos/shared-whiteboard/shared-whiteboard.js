@@ -201,9 +201,6 @@
         // 新建Session
         session = new RTCat.Session(token);
 
-        // 连接房间
-        session.connect();
-
         session.on('connected', function (users) {
             console.log('Session connected');
         });
@@ -217,6 +214,9 @@
         });
 
         session.on('message', handleMessages);
+
+        // 连接房间
+        session.connect();
     }
 
     $("a[id^='pen-']").click(function (e) {

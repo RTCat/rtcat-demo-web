@@ -17,13 +17,12 @@
     });
 
     function initSession(token) {
-        session = new RTCat.Session(token);
 
-        session.connect();
+        session = new RTCat.Session(token);
 
         session.on('connected', function (users) {
             console.log('Session connected');
-            initStream({video: true, audio: true, data: true, ratio: 1.33});
+            initStream();
         });
 
         session.on('in', function (token) {
@@ -75,6 +74,8 @@
                 }
             });
         });
+
+        session.connect();
     }
 
     /**
@@ -82,29 +83,24 @@
      * options参数为new RTCat.Stream传入的参数
      * 如需较高的视频质量, 可将fps参数调高, 并使用分辨率较高的摄像头
      * @param options {object}
-     * @param options.video    {boolean}，可选，默认false，获得视频流
-     * @param options.audio    {boolean}，可选，默认false，获得音频流
-     * @param options.data    {boolean}，可选，默认false，是否通过流传输输入
-     * @param options.ratio    {float}，可选，默认为1，获得视频的宽长比，ratio=width/length
-     * @param options.fps    {float}，可选,默认为15，视频原始帧数
-     * @param options.size    {array}，可选,默认[60,40,180,120]，视频原始大小，分别为[minWidth, minHeight, maxWidth, maxHeight]
-     * @example
-     * initStream({video: true, audio: true, data: true, ratio: 1.33, fps: 15});
+     * @param options.type    {string}，可选，本地流的类型，默认a&v
+     * @param options.fps    {float}，可选，视频每秒的帧率， 默认为15
+     * @param options.size    {Object}，可选，视频原始大小，默认{ minWidth:120, minHeight:90, maxWidth:640, maxHeight:480 }
      */
     function initStream(options) {
+
         localStream = new RTCat.Stream(options);
-        localStream.on('access-accepted', function () {
+
+        localStream.on('accepted', function () {
                 session.send({stream: localStream, data: true});
                 displayStream('self', localStream);
             }
         );
-        localStream.on('access-failed', function (err) {
+
+        localStream.on('error', function (err) {
             console.log(err);
         });
 
-        localStream.on('play-error', function (err) {
-            console.log(err);
-        });
         localStream.init();
     }
 

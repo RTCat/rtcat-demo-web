@@ -21,17 +21,13 @@
 
     // 初始化流
     function initStream() {
-        localStream = new RTCat.Stream({screen: 'kopddpjmdlllnpkpcphndjiaohbakkjb'}); //传入extension id
-        localStream.on('access-accepted', function () {
+        localStream = new RTCat.Stream({type:'screen', extensionId: 'kopddpjmdlllnpkpcphndjiaohbakkjb'}); //传入extension id
+        localStream.on('accepted', function () {
                 session.send({stream: localStream, data: true});
                 displayStream('self', localStream); //显示自己的流
             }
         );
-        localStream.on('access-failed', function (err) {
-            console.log(err);
-        });
-
-        localStream.on('play-error', function (err) {
+        localStream.on('error', function (err) {
             console.log(err);
         });
         localStream.init();
@@ -60,9 +56,8 @@
     }
 
     function initSession(token) {
-        session = new RTCat.Session(token);
 
-        session.connect();
+        session = new RTCat.Session(token);
 
         session.on('connected', function (users) {
             console.log('Session connected');
@@ -107,6 +102,8 @@
                 }
             });
         });
+
+        session.connect();
 
     }
 
