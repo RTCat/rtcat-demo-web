@@ -18,13 +18,12 @@
    git clone --recursive https://github.com/RTCat/rtcat-demo-web.git
    ```
 
-- 搭建后台[RTCat/rtcat-demo-web-backend](https://github.com/RTCat/rtcat-demo-web-backend)
+- 搭建后台
    ```bash
    cd rtcat-demo-web/backend
    npm install
    ```
-  复制目录下的config.sample.json文件重命名为config.json，并填入自己的apikey, apisecret。
-  运行`npm start`。
+  复制目录下的config.sample.json文件重命名为config.json，并填入自己的apikey, apisecret。运行`npm start`。更多说明详见[RTCat/rtcat-demo-web-backend](https://github.com/RTCat/rtcat-demo-web-backend)。
   
 - 将demos文件夹下的不同专题(例如video-chat文件夹)放置在服务器上, 如果在电脑上安装了python2或者python3, 
 可以通过在专题文件夹(例如video-chat文件夹)中运行`python -m SimpleHTTPServer 8000`或者`python3 -m http.server 8000`
